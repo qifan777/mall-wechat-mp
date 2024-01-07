@@ -1,5 +1,6 @@
 import type { Method, Result } from "@/typings";
 import Taro from "@tarojs/taro";
+import { useHomeStore } from "@/stores/home-store";
 
 const baseUrl = process.env.TARO_APP_API;
 
@@ -29,6 +30,7 @@ const requestWithToken = async <T>(
           });
         }
         if (result.code === 1001007 || result.code === 1001008) {
+          useHomeStore().loginShow = true;
         } else {
           resolve(result.result);
         }

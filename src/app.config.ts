@@ -1,6 +1,15 @@
 export default defineAppConfig({
   pages: [
     "pages/index/index",
+    "pages/user/index",
+    "pages/user/user-edit",
+    "pages/invite/index",
+    "pages/invite/invite-history",
+    "pages/coupon/index",
+    "pages/coupon/available-coupon-list",
+    "pages/address/address-list",
+    "pages/address/address-save",
+    "pages/order/index",
   ],
   window: {
     backgroundTextStyle: "light",

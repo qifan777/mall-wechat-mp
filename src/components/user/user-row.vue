@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import QiUserAvatar from "@/components/user/QiUserAvatar.vue";
+import QiUserAvatar from "@/components/user/user-avatar.vue";
 
 defineProps({
   avatar: {

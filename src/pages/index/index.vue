@@ -15,7 +15,8 @@ Taro.useLoad(() => {
             loginCode: loginRes.code,
           },
         })
-        .then(() => {
+        .then((res) => {
+          Taro.setStorageSync("token", res.tokenValue);
           homeStore.getUserInfo();
         });
     },

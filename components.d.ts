@@ -10,6 +10,8 @@ declare module '@vue/runtime-core' {
     NutButton: typeof import('@nutui/nutui-taro')['Button']
     NutInput: typeof import('@nutui/nutui-taro')['Input']
     NutPopup: typeof import('@nutui/nutui-taro')['Popup']
+    NutTag: typeof import('@nutui/nutui-taro')['Tag']
+    ProductCover: typeof import('./src/components/product/product-cover.vue')['default']
     RegisterPopup: typeof import('./src/components/register-popup/register-popup.vue')['default']
     UserAvatar: typeof import('./src/components/user/user-avatar.vue')['default']
     UserRow: typeof import('./src/components/user/user-row.vue')['default']

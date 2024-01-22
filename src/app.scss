@@ -1,5 +1,4 @@
 @mixin text-max-line($line) {
-    // 文字溢出处理开始
     // 文字只能显示一行
     -webkit-line-clamp: $line;
     -webkit-box-orient: vertical;
@@ -7,5 +6,4 @@
     overflow: hidden;
     // 溢出部分用 ...代替
     text-overflow: ellipsis;
-    // 文字溢出处理结束
 }

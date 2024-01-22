@@ -21,8 +21,8 @@ export const usePageHelper = <T extends Object, E>(
 ) => {
   const pageData = ref({
     content: [] as E,
-    number: 0,
-    size: 0,
+    number: 1,
+    size: 10,
     totalElements: 0,
     totalPages: 0,
   }) as Ref<PageResult<E>>;
@@ -33,14 +33,16 @@ export const usePageHelper = <T extends Object, E>(
     likeMode: "ANYWHERE",
     sorts: [{ property: "createdTime", direction: "DESC" }],
   }) as Ref<QueryRequest<T>>;
-  const loading = ref(false);
+  const finish = ref(false);
 
   // 请求分页数据
-  const loadPageData = (request: Partial<QueryRequest<T>>) => {
+  const loadPageData = (request: Partial<QueryRequest<T>> = {}) => {
+    // 通用查询对象，防止传入空值
     queryRequest.value = {
       ...queryRequest.value,
       ..._.omitBy(request, _.isNil),
     };
+    // 如果查询条件为null，undefined，空字符串则过滤不提交
     queryRequest.value.query = {
       ..._.omitBy(queryRequest.value.query, (row) => {
         if (_.isString(row)) {
@@ -50,17 +52,27 @@ export const usePageHelper = <T extends Object, E>(
         }
       }),
     } as T;
-    loading.value = true;
+    if (finish.value) return;
+    // 显示加载动画
+    Taro.showLoading({
+      title: "加载中",
+    });
+    // 调用查询接口
     queryApi.apply(object, [{ body: queryRequest.value }]).then(
-      (res) => {
+      (res: PageResult<E>) => {
         if (postProcessor !== undefined) {
           postProcessor(res);
         }
-        pageData.value = res;
-        loading.value = false;
+        // 返回结果
+        pageData.value.content.push(...res.content);
+        finish.value = res.content.length < res.size;
+        queryRequest.value.pageNum = (queryRequest.value.pageNum || 1) + 1;
+        // 取消加载动画
+        Taro.hideLoading();
       },
       (res) => {
         console.log(res);
+        Taro.hideLoading();
       },
     );
   };
@@ -70,21 +82,24 @@ export const usePageHelper = <T extends Object, E>(
   ) => {
     loadPageData(queryRequest);
   };
+  // 下拉刷新
   Taro.usePullDownRefresh(() => {
+    finish.value = false;
+    pageData.value.content = [];
     reloadPageData();
     setTimeout(() => {
       Taro.stopPullDownRefresh();
     }, 300);
   });
+  // 触底加载
   Taro.useReachBottom(() => {
-    loadPageData({ pageNum: pageData.value.number + 1 });
+    loadPageData();
   });
-
+  // 首次进入页面加载
   Taro.useLoad(() => {
-    loadPageData({ pageNum: pageData.value.number + 1 });
+    loadPageData();
   });
   return {
-    loading,
     queryRequest,
     pageData,
     loadPageData,

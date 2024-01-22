@@ -1,4 +1,4 @@
 export interface PhonePasswordAuth {
-  phoneNumber: string;
+  phone: string;
   password: string;
 }

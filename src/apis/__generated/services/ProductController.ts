@@ -23,11 +23,11 @@ export class ProductController {
 
   async findById(
     options: ProductControllerOptions["findById"],
-  ): Promise<ProductDto["ProductRepository/COMPLEX_FETCHER"]> {
+  ): Promise<ProductDto["ProductRepository/PRODUCT_SKU_FETCHER"]> {
     let _uri = "/product/";
     _uri += encodeURIComponent(options.id);
     return (await this.executor({ uri: _uri, method: "GET" })) as Promise<
-      ProductDto["ProductRepository/COMPLEX_FETCHER"]
+      ProductDto["ProductRepository/PRODUCT_SKU_FETCHER"]
     >;
   }
 

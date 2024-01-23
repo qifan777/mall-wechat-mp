@@ -1,4 +1,4 @@
-import type { Attribute } from "./";
+import type { KeyValue } from "./";
 
 export interface ProductInput {
   name: string;
@@ -8,8 +8,8 @@ export interface ProductInput {
   stock: number;
   description: string;
   tags: Array<string>;
+  specifications: Array<KeyValue>;
+  attributes: Array<KeyValue>;
   categoryId: string;
-  attributes: Array<Attribute>;
-  specifications: Array<Attribute>;
   id?: string | undefined;
 }

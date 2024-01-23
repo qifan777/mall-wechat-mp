@@ -1,6 +1,6 @@
-export type { Attribute } from "./Attribute";
 export type { DictInput } from "./DictInput";
 export type { DictSpec } from "./DictSpec";
+export type { KeyValue } from "./KeyValue";
 export type { MenuInput } from "./MenuInput";
 export type { MenuSpec } from "./MenuSpec";
 export type { Page } from "./Page";

@@ -53,13 +53,13 @@ export class ProductSkuController {
 
   async saveBatch(
     options: ProductSkuControllerOptions["saveBatch"],
-  ): Promise<boolean> {
+  ): Promise<boolean | undefined> {
     const _uri = "/productSku/save-batch";
     return (await this.executor({
       uri: _uri,
       method: "POST",
       body: options.body,
-    })) as Promise<boolean>;
+    })) as Promise<boolean | undefined>;
   }
 }
 export type ProductSkuControllerOptions = {

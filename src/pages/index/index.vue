@@ -8,6 +8,7 @@ import ProductCover from "@/components/product/product-cover.vue";
 import ProductSkuDialog from "@/components/product/product-sku-dialog.vue";
 import { ProductDto } from "@/apis/__generated/model/dto";
 import { ref } from "vue";
+import { useCartStore } from "@/components/cart/cart-store";
 
 const homeStore = useHomeStore();
 Taro.useLoad(() => {
@@ -43,6 +44,13 @@ const handleChoose = (id: string) => {
     chosenProduct.value = res;
   });
 };
+const cartStore = useCartStore();
+const handleAddSku = (
+  sku: ProductSkuFetcherDto["skuList"][0],
+  product: ProductSkuFetcherDto,
+) => {
+  cartStore.pushItem({ checked: true, count: 1, sku: sku, product });
+};
 </script>
 
 <template>
@@ -51,6 +59,7 @@ const handleChoose = (id: string) => {
     :key="chosenProduct.id"
     v-model:visible="dialogVisible"
     :product="chosenProduct"
+    @add-sku="handleAddSku"
   ></product-sku-dialog>
   <walter-fall :data-list="pageData.content" class="product-walter-fall">
     <template #itemLeft="{ item }">
@@ -66,6 +75,7 @@ const handleChoose = (id: string) => {
       ></product-cover>
     </template>
   </walter-fall>
+  <cart-list></cart-list>
   <register-popup></register-popup>
 </template>
 

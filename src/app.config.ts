@@ -3,6 +3,7 @@ export default defineAppConfig({
     "pages/index/index",
     "pages/user/index",
     "pages/address/address-list",
+    "pages/address/address-save",
   ],
   window: {
     backgroundTextStyle: "light",
@@ -38,8 +39,7 @@ export default defineAppConfig({
   },
   permission: {
     "scope.userLocation": {
-      desc: "你的位置讲用于为你推荐附近的旅游景点",
-      // 高速公路行驶持续后台定位
+      desc: "你的位置将用于确认收货地址",
     },
   },
   requiredPrivateInfos: ["getLocation"],

@@ -11,6 +11,7 @@ export type ProductSkuDto = {
     price: number;
     stock: number;
     description: string;
+    productId: string;
     creator: {
       id: string;
       phone: string;

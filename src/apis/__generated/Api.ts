@@ -1,5 +1,6 @@
 import type { Executor } from "./";
 import {
+  AddressController,
   AuthController,
   DictController,
   MenuController,
@@ -12,6 +13,8 @@ import {
 } from "./services/";
 
 export class Api {
+  readonly addressController: AddressController;
+
   readonly authController: AuthController;
 
   readonly dictController: DictController;
@@ -31,6 +34,7 @@ export class Api {
   readonly userWeChatController: UserWeChatController;
 
   constructor(executor: Executor) {
+    this.addressController = new AddressController(executor);
     this.authController = new AuthController(executor);
     this.dictController = new DictController(executor);
     this.menuController = new MenuController(executor);

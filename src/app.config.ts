@@ -1,5 +1,9 @@
 export default defineAppConfig({
-  pages: ["pages/index/index", "pages/user/index"],
+  pages: [
+    "pages/index/index",
+    "pages/user/index",
+    "pages/address/address-list",
+  ],
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
@@ -30,10 +34,6 @@ export default defineAppConfig({
     chooseLocation: {
       version: "1.0.10",
       provider: "wx76a9a06e5b4e693e",
-    },
-    citySelector: {
-      version: "1.0.2",
-      provider: "wx63ffb7b7894e99ae",
     },
   },
   permission: {

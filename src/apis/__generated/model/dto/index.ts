@@ -1,3 +1,4 @@
+export type { AddressDto } from "./AddressDto";
 export type { DictDto } from "./DictDto";
 export type { MenuDto } from "./MenuDto";
 export type { ProductCategoryDto } from "./ProductCategoryDto";

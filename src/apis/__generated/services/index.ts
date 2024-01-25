@@ -1,3 +1,4 @@
+export { AddressController } from "./AddressController";
 export { AuthController } from "./AuthController";
 export { DictController } from "./DictController";
 export { MenuController } from "./MenuController";

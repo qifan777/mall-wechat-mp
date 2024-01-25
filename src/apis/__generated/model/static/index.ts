@@ -1,3 +1,5 @@
+export type { AddressInput } from "./AddressInput";
+export type { AddressSpec } from "./AddressSpec";
 export type { DictInput } from "./DictInput";
 export type { DictSpec } from "./DictSpec";
 export type { KeyValue } from "./KeyValue";

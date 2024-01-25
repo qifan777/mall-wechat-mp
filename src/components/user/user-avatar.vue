@@ -1,34 +1,39 @@
 <template>
   <div>
     <image
-      v-if="avatar"
-      :src="avatar"
-      :style="{ width: width, borderRadius: radius }"
-      mode="widthFix"
+      v-if="src"
+      :style="{ width, height, borderRadius: radius }"
+      v-bind="{ ...$attrs, src, mode }"
     ></image>
     <image
       v-else
-      :style="{ width: width, borderRadius: radius }"
-      mode="widthFix"
+      :style="{ width, height, borderRadius: radius }"
+      v-bind="{ ...$attrs, mode }"
       src="@/assets/icons/person.png"
     ></image>
   </div>
 </template>
 
 <script lang="ts" setup>
-defineProps({
-  avatar: {
-    type: String,
-    default: undefined,
+import { ImageProps } from "@tarojs/components";
+
+withDefaults(
+  defineProps<{
+    src?: string;
+    radius?: string;
+    width?: string;
+    height?: string;
+    mode?: ImageProps["mode"];
+  }>(),
+  {
+    width: "60rpx",
+    height: "60rpx",
+    radius: "50rpx",
+    mode: "widthFix",
   },
-  width: {
-    type: String,
-    default: "60px",
-  },
-  radius: {
-    type: String,
-    default: "15px",
-  },
+);
+defineOptions({
+  inheritAttrs: false,
 });
 </script>
 

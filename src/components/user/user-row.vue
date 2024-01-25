@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="avatar">
-      <QiUserAvatar :avatar="avatar" :width="width"></QiUserAvatar>
+      <user-avatar :src="avatar" :width="width"></user-avatar>
     </div>
     <div class="info">
       <div class="info-top">
@@ -17,28 +17,16 @@
 </template>
 
 <script lang="ts" setup>
-import QiUserAvatar from "@/components/user/user-avatar.vue";
-
-defineProps({
-  avatar: {
-    type: String,
-    default: "",
-    required: false,
-  },
-  width: { type: String, default: "85rpx" },
-  name: {
-    type: String,
-    required: true,
-  },
-  label: {
-    type: String,
-    default: "",
-  },
-  time: {
-    type: String,
-    default: "",
-  },
-});
+withDefaults(
+  defineProps<{
+    avatar?: string;
+    width: string;
+    name: string;
+    label: string;
+    time: string;
+  }>(),
+  { avatar: "", width: "85rpx", label: "", time: "" },
+);
 </script>
 
 <style lang="scss">

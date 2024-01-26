@@ -35,7 +35,6 @@ defineProps<{ address: AddressDto["AddressRepository/SIMPLE_FETCHER"] }>();
     }
     .connector {
       font-size: 28rpx;
-      color: rgba(black, 0.3);
       display: flex;
       align-items: center;
       .real-name {

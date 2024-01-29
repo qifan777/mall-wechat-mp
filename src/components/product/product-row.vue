@@ -40,8 +40,8 @@ defineProps<{
   display: flex;
   align-items: flex-start;
   .cover {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     border-radius: 10px;
   }
   .info {
@@ -51,7 +51,6 @@ defineProps<{
     padding-right: 10px;
     .name {
       font-size: 28px;
-      font-weight: bold;
       @include text-max-line(1);
     }
     .description {

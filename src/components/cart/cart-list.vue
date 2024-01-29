@@ -77,7 +77,7 @@ const { minusItem, plusItem, clearCart, toggleCart } = cartStore;
 
 const emit = defineEmits<{ submit: [value: CartItem[]] }>();
 const submit = () => {
-  emit("submit", cartStore.cartList);
+  emit("submit", cartStore.checkedItems);
 };
 // 中间状态
 const isIndeterminate = computed(() => {

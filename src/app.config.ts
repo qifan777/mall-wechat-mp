@@ -6,6 +6,7 @@ export default defineAppConfig({
     "pages/address/address-save",
     "pages/order/order-create",
     "pages/order/order-list",
+    "pages/order/order-details",
   ],
   window: {
     backgroundTextStyle: "light",

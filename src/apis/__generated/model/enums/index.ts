@@ -6,3 +6,7 @@ export type { LikeMode } from "./LikeMode";
 export { LikeMode_CONSTANTS } from "./LikeMode";
 export type { MenuType } from "./MenuType";
 export { MenuType_CONSTANTS } from "./MenuType";
+export type { PayType } from "./PayType";
+export { PayType_CONSTANTS } from "./PayType";
+export type { ProductOrderStatus } from "./ProductOrderStatus";
+export { ProductOrderStatus_CONSTANTS } from "./ProductOrderStatus";

@@ -8,7 +8,7 @@ import ProductCover from "@/components/product/product-cover.vue";
 import ProductSkuDialog from "@/components/product/product-sku-dialog.vue";
 import { ProductDto } from "@/apis/__generated/model/dto";
 import { ref } from "vue";
-import { useCartStore } from "@/components/cart/cart-store";
+import { CartItem, useCartStore } from "@/components/cart/cart-store";
 
 const homeStore = useHomeStore();
 Taro.useLoad(() => {
@@ -51,6 +51,14 @@ const handleAddSku = (
 ) => {
   cartStore.pushItem({ checked: true, count: 1, sku: sku, product });
 };
+const handleSubmit = (catItems: CartItem[]) => {
+  Taro.navigateTo({
+    url: "/pages/order/order-create",
+    success: () => {
+      Taro.eventCenter.trigger("submitCart", catItems);
+    },
+  });
+};
 </script>
 
 <template>
@@ -75,7 +83,7 @@ const handleAddSku = (
       ></product-cover>
     </template>
   </walter-fall>
-  <cart-list></cart-list>
+  <cart-list @submit="handleSubmit"></cart-list>
   <register-popup></register-popup>
 </template>
 

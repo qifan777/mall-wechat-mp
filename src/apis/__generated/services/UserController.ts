@@ -80,6 +80,7 @@ export class UserController {
     })) as Promise<string>;
   }
 }
+
 export type UserControllerOptions = {
   findById: {
     id: string;

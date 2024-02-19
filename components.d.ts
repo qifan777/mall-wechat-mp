@@ -7,8 +7,12 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AddressRow: typeof import('./src/components/address/address-row.vue')['default']
     CartList: typeof import('./src/components/cart/cart-list.vue')['default']
+    NutActionSheet: typeof import('@nutui/nutui-taro')['ActionSheet']
     NutButton: typeof import('@nutui/nutui-taro')['Button']
+    NutCell: typeof import('@nutui/nutui-taro')['Cell']
+    NutCellGroup: typeof import('@nutui/nutui-taro')['CellGroup']
     NutCheckbox: typeof import('@nutui/nutui-taro')['Checkbox']
     NutInput: typeof import('@nutui/nutui-taro')['Input']
     NutPopup: typeof import('@nutui/nutui-taro')['Popup']

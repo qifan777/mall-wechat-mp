@@ -39,6 +39,7 @@ defineProps<{
   padding: 15px 0;
   display: flex;
   align-items: flex-start;
+  width: 100%;
   .cover {
     width: 140px;
     height: 140px;

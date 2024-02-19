@@ -30,6 +30,7 @@ export class AuthController {
     })) as Promise<SaTokenInfo>;
   }
 }
+
 export type AuthControllerOptions = {
   authByPhonePassword: {
     body: PhonePasswordAuth;

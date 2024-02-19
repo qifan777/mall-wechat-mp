@@ -78,6 +78,7 @@ export class AddressController {
     >;
   }
 }
+
 export type AddressControllerOptions = {
   findById: {
     id: string;

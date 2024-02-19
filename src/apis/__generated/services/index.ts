@@ -4,6 +4,7 @@ export { DictController } from "./DictController";
 export { MenuController } from "./MenuController";
 export { ProductCategoryController } from "./ProductCategoryController";
 export { ProductController } from "./ProductController";
+export { ProductOrderController } from "./ProductOrderController";
 export { ProductSkuController } from "./ProductSkuController";
 export { RoleController } from "./RoleController";
 export { UserController } from "./UserController";

@@ -58,6 +58,7 @@ export class DictController {
     })) as Promise<string>;
   }
 }
+
 export type DictControllerOptions = {
   findById: {
     id: string;

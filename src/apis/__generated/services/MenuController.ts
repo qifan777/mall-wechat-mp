@@ -46,6 +46,7 @@ export class MenuController {
     })) as Promise<string>;
   }
 }
+
 export type MenuControllerOptions = {
   findById: {
     id: string;

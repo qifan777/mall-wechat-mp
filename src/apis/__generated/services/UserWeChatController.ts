@@ -64,6 +64,7 @@ export class UserWeChatController {
     })) as Promise<string>;
   }
 }
+
 export type UserWeChatControllerOptions = {
   findById: {
     id: string;

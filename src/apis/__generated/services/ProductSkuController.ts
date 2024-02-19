@@ -62,6 +62,7 @@ export class ProductSkuController {
     })) as Promise<boolean | undefined>;
   }
 }
+
 export type ProductSkuControllerOptions = {
   findById: {
     id: string;

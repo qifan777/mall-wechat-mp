@@ -58,7 +58,7 @@
     <div class="pay-cancel-wrapper">
       <div class="pay-cancel">
         <div class="cancel">取消订单</div>
-        <nut-button type="danger"
+        <nut-button type="danger" @click="handlePay"
           >立即支付 ￥{{ order.payment.payAmount }}
         </nut-button>
       </div>
@@ -79,6 +79,28 @@ Taro.useLoad(({ id }) => {
     order.value = res;
   });
 });
+const handlePay = () => {
+  if (order.value) {
+    api.productOrderController.prepay({ id: order.value.id }).then((res) => {
+      Taro.requestPayment({
+        nonceStr: res.nonceStr,
+        package: res.packageValue,
+        paySign: res.paySign,
+        timeStamp: res.timeStamp,
+        signType: res.signType as "RSA",
+        success: () => {
+          Taro.showToast({
+            title: "支付成功",
+            icon: "success",
+          });
+        },
+        fail: (res) => {
+          console.log(res);
+        },
+      });
+    });
+  }
+};
 </script>
 
 <style lang="scss">

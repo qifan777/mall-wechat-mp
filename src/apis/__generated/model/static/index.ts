@@ -32,3 +32,4 @@ export type { UserWeChatInput } from "./UserWeChatInput";
 export type { UserWeChatRegisterInput } from "./UserWeChatRegisterInput";
 export type { UserWeChatSpec } from "./UserWeChatSpec";
 export type { WeChatAuth } from "./WeChatAuth";
+export type { WxPayUnifiedOrderV3Result_JsapiResult } from "./WxPayUnifiedOrderV3Result_JsapiResult";

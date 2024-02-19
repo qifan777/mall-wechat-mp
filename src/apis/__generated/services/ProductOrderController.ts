@@ -5,6 +5,7 @@ import type {
   ProductOrderInput,
   ProductOrderSpec,
   QueryRequest,
+  WxPayUnifiedOrderV3Result_JsapiResult,
 } from "../model/static/";
 
 export class ProductOrderController {
@@ -40,6 +41,18 @@ export class ProductOrderController {
     return (await this.executor({ uri: _uri, method: "GET" })) as Promise<
       ProductOrderDto["ProductOrderRepository/COMPLEX_FETCHER"]
     >;
+  }
+
+  async prepay(
+    options: ProductOrderControllerOptions["prepay"],
+  ): Promise<WxPayUnifiedOrderV3Result_JsapiResult> {
+    let _uri = "/productOrder/";
+    _uri += encodeURIComponent(options.id);
+    _uri += "/prepay";
+    return (await this.executor({
+      uri: _uri,
+      method: "POST",
+    })) as Promise<WxPayUnifiedOrderV3Result_JsapiResult>;
   }
 
   async query(
@@ -96,5 +109,8 @@ export type ProductOrderControllerOptions = {
   };
   queryByUser: {
     body: QueryRequest<ProductOrderSpec>;
+  };
+  prepay: {
+    id: string;
   };
 };

@@ -55,6 +55,19 @@ export class ProductOrderController {
     >;
   }
 
+  async queryByUser(
+    options: ProductOrderControllerOptions["queryByUser"],
+  ): Promise<Page<ProductOrderDto["ProductOrderRepository/COMPLEX_FETCHER"]>> {
+    const _uri = "/productOrder/user";
+    return (await this.executor({
+      uri: _uri,
+      method: "POST",
+      body: options.body,
+    })) as Promise<
+      Page<ProductOrderDto["ProductOrderRepository/COMPLEX_FETCHER"]>
+    >;
+  }
+
   async save(options: ProductOrderControllerOptions["save"]): Promise<string> {
     const _uri = "/productOrder/save";
     return (await this.executor({
@@ -80,5 +93,8 @@ export type ProductOrderControllerOptions = {
   };
   create: {
     body: ProductOrderInput;
+  };
+  queryByUser: {
+    body: QueryRequest<ProductOrderSpec>;
   };
 };

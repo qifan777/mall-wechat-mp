@@ -9,6 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AddressRow: typeof import('./src/components/address/address-row.vue')['default']
     CartList: typeof import('./src/components/cart/cart-list.vue')['default']
+    DictColumn: typeof import('./src/components/dict/dict-column.vue')['default']
     NutActionSheet: typeof import('@nutui/nutui-taro')['ActionSheet']
     NutButton: typeof import('@nutui/nutui-taro')['Button']
     NutCell: typeof import('@nutui/nutui-taro')['Cell']
@@ -16,7 +17,10 @@ declare module '@vue/runtime-core' {
     NutCheckbox: typeof import('@nutui/nutui-taro')['Checkbox']
     NutInput: typeof import('@nutui/nutui-taro')['Input']
     NutPopup: typeof import('@nutui/nutui-taro')['Popup']
+    NutTabPane: typeof import('@nutui/nutui-taro')['TabPane']
+    NutTabs: typeof import('@nutui/nutui-taro')['Tabs']
     NutTag: typeof import('@nutui/nutui-taro')['Tag']
+    OrderRow: typeof import('./src/components/order/order-row.vue')['default']
     ProductCover: typeof import('./src/components/product/product-cover.vue')['default']
     ProductRow: typeof import('./src/components/product/product-row.vue')['default']
     ProductSkuDialog: typeof import('./src/components/product/product-sku-dialog.vue')['default']

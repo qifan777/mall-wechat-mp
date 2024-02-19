@@ -15,6 +15,7 @@ export type { ProductOrderInput } from "./ProductOrderInput";
 export type { ProductOrderInput_TargetOf_items } from "./ProductOrderInput_TargetOf_items";
 export type { ProductOrderInput_TargetOf_payment } from "./ProductOrderInput_TargetOf_payment";
 export type { ProductOrderSpec } from "./ProductOrderSpec";
+export type { ProductOrderSpec_TargetOf_creator } from "./ProductOrderSpec_TargetOf_creator";
 export type { ProductSkuInput } from "./ProductSkuInput";
 export type { ProductSkuSpec } from "./ProductSkuSpec";
 export type { ProductSpec } from "./ProductSpec";

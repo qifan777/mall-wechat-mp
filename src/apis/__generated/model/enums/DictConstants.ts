@@ -20,7 +20,7 @@ export const Dictionaries = {
       keyName: "支付宝",
       keyEnName: "ALI_PAY",
       dictId: 1004,
-      dictName: "支付方式",
+      dictName: "支付类型",
       dictEnName: "PAY_TYPE",
       orderNum: 0,
     },

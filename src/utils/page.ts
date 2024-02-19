@@ -77,15 +77,13 @@ export const usePageHelper = <T extends Object, E>(
     );
   };
   // 重新请求分页数据，pageNum=1, pageSize=10
-  const reloadPageData = (
-    queryRequest: Partial<QueryRequest<T>> = { pageNum: 1, pageSize: 10 },
-  ) => {
-    loadPageData(queryRequest);
+  const reloadPageData = (query?: T) => {
+    finish.value = false;
+    pageData.value.content = [];
+    loadPageData({ pageNum: 1, pageSize: 10, query });
   };
   // 下拉刷新
   Taro.usePullDownRefresh(() => {
-    finish.value = false;
-    pageData.value.content = [];
     reloadPageData();
     setTimeout(() => {
       Taro.stopPullDownRefresh();

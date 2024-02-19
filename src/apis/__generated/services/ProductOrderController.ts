@@ -11,6 +11,17 @@ import type {
 export class ProductOrderController {
   constructor(private executor: Executor) {}
 
+  async cancel(
+    options: ProductOrderControllerOptions["cancel"],
+  ): Promise<boolean | undefined> {
+    let _uri = "/productOrder/";
+    _uri += encodeURIComponent(options.id);
+    _uri += "/cancel";
+    return (await this.executor({ uri: _uri, method: "POST" })) as Promise<
+      boolean | undefined
+    >;
+  }
+
   async create(
     options: ProductOrderControllerOptions["create"],
   ): Promise<string> {
@@ -111,6 +122,9 @@ export type ProductOrderControllerOptions = {
     body: QueryRequest<ProductOrderSpec>;
   };
   prepay: {
+    id: string;
+  };
+  cancel: {
     id: string;
   };
 };

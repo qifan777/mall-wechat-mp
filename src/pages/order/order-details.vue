@@ -57,7 +57,7 @@
     </nut-cell-group>
     <div class="pay-cancel-wrapper">
       <div class="pay-cancel">
-        <div class="cancel">取消订单</div>
+        <div class="cancel" @click="handleCancel">取消订单</div>
         <nut-button type="danger" @click="handlePay"
           >立即支付 ￥{{ order.payment.payAmount }}
         </nut-button>
@@ -100,6 +100,22 @@ const handlePay = () => {
       });
     });
   }
+};
+const handleCancel = () => {
+  Taro.showModal({
+    title: "是否确认取消订单",
+    success: (actionRes) => {
+      if (order.value && actionRes.confirm) {
+        api.productOrderController.cancel({ id: order.value.id }).then(() => {
+          Taro.showToast({
+            title: "取消成功",
+            icon: "success",
+          });
+          Taro.navigateBack();
+        });
+      }
+    },
+  });
 };
 </script>
 

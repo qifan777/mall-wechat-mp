@@ -22,6 +22,14 @@
               v-if="order.status === 'TO_BE_PAID'"
               >立即支付</nut-button
             >
+            <nut-button
+              size="small"
+              type="danger"
+              plain
+              v-if="order.status === 'TO_BE_RECEIVED'"
+              @click="trackingDetails"
+              >查看物流</nut-button
+            >
           </order-row>
         </div>
       </nut-tab-pane>
@@ -36,6 +44,7 @@ import { ProductOrderStatus } from "@/apis/__generated/model/enums";
 import { switchPage } from "@/utils/common";
 import { Dictionaries } from "@/apis/__generated/model/enums/DictConstants";
 import { ref } from "vue";
+import Taro from "@tarojs/taro";
 const { TO_BE_PAID, TO_BE_DELIVERED, TO_BE_RECEIVED, CLOSED } =
   Dictionaries.ProductOrderStatus;
 const tabList = [TO_BE_PAID, TO_BE_DELIVERED, TO_BE_RECEIVED, CLOSED];
@@ -50,6 +59,12 @@ const { pageData, reloadPageData } = usePageHelper(
 );
 const showCancel = (status: ProductOrderStatus) => {
   return status === "TO_BE_PAID" || status === "TO_BE_DELIVERED";
+};
+const trackingDetails = (trackingNumber: string) => {
+  Taro.navigateToMiniProgram({
+    appId: "wx6885acbedba59c14",
+    path: `pages/result/result?nu=${trackingNumber}&com=&querysource=third_xcx`,
+  });
 };
 </script>
 <style lang="scss">

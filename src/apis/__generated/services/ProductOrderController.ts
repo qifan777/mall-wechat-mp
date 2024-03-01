@@ -44,6 +44,26 @@ export class ProductOrderController {
     })) as Promise<boolean | undefined>;
   }
 
+  async deliver(
+    options: ProductOrderControllerOptions["deliver"],
+  ): Promise<boolean | undefined> {
+    let _uri = "/productOrder/";
+    _uri += encodeURIComponent(options.id);
+    _uri += "/deliver";
+    let _separator = _uri.indexOf("?") === -1 ? "?" : "&";
+    let _value: any = undefined;
+    _value = options.trackingNumber;
+    if (_value !== undefined && _value !== null) {
+      _uri += _separator;
+      _uri += "trackingNumber=";
+      _uri += encodeURIComponent(_value);
+      _separator = "&";
+    }
+    return (await this.executor({ uri: _uri, method: "POST" })) as Promise<
+      boolean | undefined
+    >;
+  }
+
   async findById(
     options: ProductOrderControllerOptions["findById"],
   ): Promise<ProductOrderDto["ProductOrderRepository/COMPLEX_FETCHER"]> {
@@ -126,5 +146,9 @@ export type ProductOrderControllerOptions = {
   };
   cancel: {
     id: string;
+  };
+  deliver: {
+    id: string;
+    trackingNumber: string;
   };
 };

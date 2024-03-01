@@ -1,6 +1,3 @@
-/**
- * Entity for table "user_wechat"
- */
 export interface UserWeChatSpec {
   id?: string | undefined;
   openId?: string | undefined;

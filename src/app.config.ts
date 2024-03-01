@@ -7,6 +7,7 @@ export default defineAppConfig({
     "pages/order/order-create",
     "pages/order/order-list",
     "pages/order/order-details",
+    "pages/coupon/index",
   ],
   window: {
     backgroundTextStyle: "light",

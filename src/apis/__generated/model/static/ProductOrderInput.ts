@@ -5,6 +5,7 @@ import type {
 
 export interface ProductOrderInput {
   remark: string;
+  trackingNumber?: string | undefined;
   id?: string | undefined;
   addressId: string;
   items: Array<ProductOrderInput_TargetOf_items>;

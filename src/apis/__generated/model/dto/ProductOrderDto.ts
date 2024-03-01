@@ -10,6 +10,7 @@ export type ProductOrderDto = {
     editedTime: string;
     remark: string;
     status: ProductOrderStatus;
+    trackingNumber?: string | undefined;
     items: Array<{
       id: string;
       productSku: {

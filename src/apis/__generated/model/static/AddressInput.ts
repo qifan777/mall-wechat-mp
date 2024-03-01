@@ -1,6 +1,3 @@
-/**
- * Entity for table "address"
- */
 export interface AddressInput {
   latitude: number;
   longitude: number;

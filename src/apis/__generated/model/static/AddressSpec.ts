@@ -1,6 +1,3 @@
-/**
- * Entity for table "address"
- */
 export interface AddressSpec {
   latitude?: number | undefined;
   longitude?: number | undefined;

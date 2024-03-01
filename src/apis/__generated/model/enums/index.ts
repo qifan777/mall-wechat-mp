@@ -1,3 +1,11 @@
+export type { CouponReceiveType } from "./CouponReceiveType";
+export { CouponReceiveType_CONSTANTS } from "./CouponReceiveType";
+export type { CouponScope } from "./CouponScope";
+export { CouponScope_CONSTANTS } from "./CouponScope";
+export type { CouponType } from "./CouponType";
+export { CouponType_CONSTANTS } from "./CouponType";
+export type { CouponUseStatus } from "./CouponUseStatus";
+export { CouponUseStatus_CONSTANTS } from "./CouponUseStatus";
 export type { Direction } from "./Direction";
 export { Direction_CONSTANTS } from "./Direction";
 export type { Gender } from "./Gender";
@@ -10,3 +18,5 @@ export type { PayType } from "./PayType";
 export { PayType_CONSTANTS } from "./PayType";
 export type { ProductOrderStatus } from "./ProductOrderStatus";
 export { ProductOrderStatus_CONSTANTS } from "./ProductOrderStatus";
+export type { RefundStatus } from "./RefundStatus";
+export { RefundStatus_CONSTANTS } from "./RefundStatus";

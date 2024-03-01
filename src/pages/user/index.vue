@@ -53,15 +53,23 @@
         <image
           class="icon"
           mode="widthFix"
-          src="@/assets/icons/address.png"
+          src="@/assets/icons/location.png"
         ></image>
         <div class="name">我的地址</div>
+      </div>
+      <div class="function" @tap="switchPage('/pages/coupon/index')">
+        <image
+          class="icon"
+          mode="widthFix"
+          src="@/assets/icons/coupon.png"
+        ></image>
+        <div class="name">优惠券</div>
       </div>
       <div class="function" @tap="switchPage('/pages/feedback/index')">
         <image
           class="icon"
           mode="widthFix"
-          src="@/assets/icons/feedback.png"
+          src="@/assets/icons/edit.png"
         ></image>
         <div class="name">反馈建议</div>
       </div>
@@ -69,15 +77,7 @@
         <image
           class="icon"
           mode="widthFix"
-          src="@/assets/icons/user-invite.png"
-        ></image>
-        <div class="name">我的推广</div>
-      </div>
-      <div class="function" @tap="switchPage('/pages/invite/index')">
-        <image
-          class="icon"
-          mode="widthFix"
-          src="@/assets/icons/user-invite.png"
+          src="@/assets/icons/invite.png"
         ></image>
         <div class="name">我的推广</div>
       </div>

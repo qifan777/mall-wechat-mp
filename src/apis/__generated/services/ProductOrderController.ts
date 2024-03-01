@@ -1,5 +1,5 @@
 import type { Executor } from "../";
-import type { ProductOrderDto } from "../model/dto/";
+import type { CouponUserDto, ProductOrderDto } from "../model/dto/";
 import type {
   Page,
   ProductOrderInput,
@@ -10,6 +10,24 @@ import type {
 
 export class ProductOrderController {
   constructor(private executor: Executor) {}
+
+  async availableCoupons(
+    options: ProductOrderControllerOptions["availableCoupons"],
+  ): Promise<Array<CouponUserDto["CouponUserRepository/COMPLEX_FETCHER"]>> {
+    let _uri = "/productOrder/coupon";
+    let _separator = _uri.indexOf("?") === -1 ? "?" : "&";
+    let _value: any = undefined;
+    _value = options.price;
+    if (_value !== undefined && _value !== null) {
+      _uri += _separator;
+      _uri += "price=";
+      _uri += encodeURIComponent(_value);
+      _separator = "&";
+    }
+    return (await this.executor({ uri: _uri, method: "POST" })) as Promise<
+      Array<CouponUserDto["CouponUserRepository/COMPLEX_FETCHER"]>
+    >;
+  }
 
   async cancel(
     options: ProductOrderControllerOptions["cancel"],
@@ -150,5 +168,8 @@ export type ProductOrderControllerOptions = {
   deliver: {
     id: string;
     trackingNumber: string;
+  };
+  availableCoupons: {
+    price: number;
   };
 };

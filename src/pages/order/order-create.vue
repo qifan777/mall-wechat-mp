@@ -3,11 +3,7 @@
     <div class="address" v-if="address">
       <nut-cell is-link center @click="addressChooseVisible = true">
         <template #icon>
-          <location2
-            color="red"
-            size="20"
-            style="margin-right: 10px"
-          ></location2>
+          <image class="icon" src="@/assets/icons/location.png"></image>
         </template>
         <template #title>
           <address-row :address="address"></address-row>
@@ -17,10 +13,19 @@
         </template>
       </nut-cell>
     </div>
-    <address-choose
-      v-model:visible="addressChooseVisible"
-      @choose="handleAddressChose"
-    ></address-choose>
+    <div class="coupon">
+      <nut-cell is-link center @click="couponListVisible = true" title="优惠券">
+        <template #icon>
+          <image class="icon" src="@/assets/icons/coupon.png"></image>
+        </template>
+        <template #desc>
+          {{ chosenCoupon ? chosenCoupon.coupon.name : "请选择优惠券" }}
+        </template>
+        <template #link>
+          <rect-right></rect-right>
+        </template>
+      </nut-cell>
+    </div>
     <!-- 忽略地址信息... -->
     <div class="product-list">
       <product-row
@@ -50,7 +55,7 @@
       </nut-cell>
       <nut-cell title="优惠券">
         <template #desc>
-          <div class="value">-￥{{ 0 }}</div>
+          <div class="value">-￥{{ couponPrice }}</div>
         </template>
       </nut-cell>
       <nut-cell title="vip优惠">
@@ -65,6 +70,12 @@
         <nut-button type="danger" @click="saveOrder">提交订单</nut-button>
       </div>
     </div>
+    <available-coupon-list
+      v-if="productPrice"
+      v-model:visible="couponListVisible"
+      :price="productPrice"
+      @choose="handleCouponChoose"
+    ></available-coupon-list>
     <address-choose
       v-model:visible="addressChooseVisible"
       @choose="handleAddressChose"
@@ -76,10 +87,11 @@
 import Taro from "@tarojs/taro";
 import { computed, ref } from "vue";
 import { CartItem } from "@/components/cart/cart-store";
-import { AddressDto } from "@/apis/__generated/model/dto";
+import { AddressDto, CouponUserDto } from "@/apis/__generated/model/dto";
 import AddressChoose from "@/pages/address/address-choose.vue";
-import { RectRight, Location2 } from "@nutui/icons-vue-taro";
+import { RectRight } from "@nutui/icons-vue-taro";
 import { api } from "@/utils/api-instance";
+import AvailableCouponList from "@/pages/coupon/available-coupon-list.vue";
 
 const addressChooseVisible = ref(false);
 const address = ref<AddressDto["AddressRepository/SIMPLE_FETCHER"]>();
@@ -132,6 +144,37 @@ const saveOrder = () => {
       });
     });
 };
+const chosenCoupon =
+  ref<CouponUserDto["CouponUserRepository/COMPLEX_FETCHER"]>();
+const couponListVisible = ref(false);
+const couponPrice = computed(() => {
+  if (!chosenCoupon.value) {
+    return 0;
+  }
+  if (
+    chosenCoupon.value.coupon.type === "DISCOUNT" &&
+    chosenCoupon.value.coupon.discount
+  ) {
+    console.log(10 - chosenCoupon.value.coupon.discount);
+    return (
+      (productPrice.value * (10 - chosenCoupon.value.coupon.discount)) /
+      10
+    ).toFixed(2);
+  }
+  if (
+    chosenCoupon.value.coupon.type === "REDUCE" &&
+    chosenCoupon.value.coupon.amount
+  ) {
+    return productPrice.value - chosenCoupon.value.coupon.amount;
+  }
+});
+const handleCouponChoose = (
+  value: CouponUserDto["CouponUserRepository/COMPLEX_FETCHER"],
+) => {
+  console.log(value);
+  chosenCoupon.value = value;
+  couponListVisible.value = false;
+};
 </script>
 
 <style lang="scss">
@@ -140,6 +183,10 @@ page {
 }
 
 .order-submit {
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
   .address {
     background-color: white;
     border-bottom-left-radius: 12px;

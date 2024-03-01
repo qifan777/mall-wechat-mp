@@ -2,6 +2,7 @@ import type { Executor } from "../";
 import type { CouponUserDto, ProductOrderDto } from "../model/dto/";
 import type {
   Page,
+  PaymentPriceView,
   ProductOrderInput,
   ProductOrderSpec,
   QueryRequest,
@@ -27,6 +28,17 @@ export class ProductOrderController {
     return (await this.executor({ uri: _uri, method: "POST" })) as Promise<
       Array<CouponUserDto["CouponUserRepository/COMPLEX_FETCHER"]>
     >;
+  }
+
+  async calculate(
+    options: ProductOrderControllerOptions["calculate"],
+  ): Promise<PaymentPriceView> {
+    const _uri = "/productOrder/calculate";
+    return (await this.executor({
+      uri: _uri,
+      method: "POST",
+      body: options.body,
+    })) as Promise<PaymentPriceView>;
   }
 
   async cancel(
@@ -171,5 +183,8 @@ export type ProductOrderControllerOptions = {
   };
   availableCoupons: {
     price: number;
+  };
+  calculate: {
+    body: ProductOrderInput;
   };
 };

@@ -9,6 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AddressRow: typeof import('./src/components/address/address-row.vue')['default']
     CartList: typeof import('./src/components/cart/cart-list.vue')['default']
+    CouponRow: typeof import('./src/components/coupon/coupon-row.vue')['default']
     DictColumn: typeof import('./src/components/dict/dict-column.vue')['default']
     NutActionSheet: typeof import('@nutui/nutui-taro')['ActionSheet']
     NutButton: typeof import('@nutui/nutui-taro')['Button']

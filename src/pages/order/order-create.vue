@@ -45,7 +45,7 @@
     <nut-cell-group class="summary">
       <nut-cell title="商品总价">
         <template #desc>
-          <div class="value">￥{{ productPrice }}</div>
+          <div class="value">￥{{ paymentPrice.productAmount }}</div>
         </template>
       </nut-cell>
       <nut-cell title="配送费">
@@ -55,7 +55,7 @@
       </nut-cell>
       <nut-cell title="优惠券">
         <template #desc>
-          <div class="value">-￥{{ couponPrice }}</div>
+          <div class="value">-￥{{ paymentPrice.couponAmount }}</div>
         </template>
       </nut-cell>
       <nut-cell title="vip优惠">
@@ -66,14 +66,14 @@
     </nut-cell-group>
     <div class="submit-bar-wrapper">
       <div class="submit-bar">
-        <div class="price">￥{{ productPrice }}</div>
+        <div class="price">￥{{ paymentPrice.payAmount }}</div>
         <nut-button type="danger" @click="saveOrder">提交订单</nut-button>
       </div>
     </div>
     <available-coupon-list
-      v-if="productPrice"
+      v-if="paymentPrice.productAmount"
       v-model:visible="couponListVisible"
-      :price="productPrice"
+      :price="paymentPrice.productAmount"
       @choose="handleCouponChoose"
     ></available-coupon-list>
     <address-choose
@@ -85,13 +85,17 @@
 
 <script setup lang="ts">
 import Taro from "@tarojs/taro";
-import { computed, ref } from "vue";
+import { ref, watchEffect } from "vue";
 import { CartItem } from "@/components/cart/cart-store";
 import { AddressDto, CouponUserDto } from "@/apis/__generated/model/dto";
 import AddressChoose from "@/pages/address/address-choose.vue";
 import { RectRight } from "@nutui/icons-vue-taro";
 import { api } from "@/utils/api-instance";
 import AvailableCouponList from "@/pages/coupon/available-coupon-list.vue";
+import type {
+  PaymentPriceView,
+  ProductOrderInput,
+} from "@/apis/__generated/model/static";
 
 const addressChooseVisible = ref(false);
 const address = ref<AddressDto["AddressRepository/SIMPLE_FETCHER"]>();
@@ -102,16 +106,51 @@ const handleAddressChose = (
 };
 
 const cartItems = ref<CartItem[]>([]);
-const productPrice = computed(() => {
-  return cartItems.value.reduce(
-    (prev, cur) => prev + cur.sku.price * cur.count,
-    0,
-  );
-});
 Taro.eventCenter.on("submitCart", (items: CartItem[]) => {
   cartItems.value = items;
 });
+const chosenCoupon =
+  ref<CouponUserDto["CouponUserRepository/COMPLEX_FETCHER"]>();
+const couponListVisible = ref(false);
+const handleCouponChoose = (
+  value: CouponUserDto["CouponUserRepository/COMPLEX_FETCHER"],
+) => {
+  chosenCoupon.value = value;
+  couponListVisible.value = false;
+};
 
+const paymentPrice = ref<PaymentPriceView>({
+  couponAmount: 0,
+  deliveryFee: 0,
+  payAmount: 0,
+  productAmount: 0,
+  vipAmount: 0,
+});
+const order = ref<ProductOrderInput>({
+  remark: "",
+  items: [],
+  addressId: "",
+  payment: {
+    payType: "WE_CHAT_PAY",
+  },
+  couponUser: {},
+});
+watchEffect(() => {
+  if (cartItems.value.length === 0) return;
+  order.value.items = cartItems.value.map((item) => ({
+    productSkuId: item.sku.id,
+    skuCount: item.count,
+  }));
+  if (address.value) {
+    order.value.addressId = address.value.id;
+  }
+  if (chosenCoupon.value && order.value.couponUser) {
+    order.value.couponUser.id = chosenCoupon.value.id;
+  }
+  api.productOrderController.calculate({ body: order.value }).then((res) => {
+    paymentPrice.value = res;
+  });
+});
 const saveOrder = () => {
   if (!address.value) {
     Taro.showToast({
@@ -123,17 +162,7 @@ const saveOrder = () => {
   }
   api.productOrderController
     .create({
-      body: {
-        remark: "",
-        items: cartItems.value.map((item) => ({
-          productSkuId: item.sku.id,
-          skuCount: item.count,
-        })),
-        addressId: address.value.id,
-        payment: {
-          payType: "WE_CHAT_PAY",
-        },
-      },
+      body: order.value,
     })
     .then((res) => {
       console.log(res);
@@ -143,37 +172,6 @@ const saveOrder = () => {
         duration: 1000,
       });
     });
-};
-const chosenCoupon =
-  ref<CouponUserDto["CouponUserRepository/COMPLEX_FETCHER"]>();
-const couponListVisible = ref(false);
-const couponPrice = computed(() => {
-  if (!chosenCoupon.value) {
-    return 0;
-  }
-  if (
-    chosenCoupon.value.coupon.type === "DISCOUNT" &&
-    chosenCoupon.value.coupon.discount
-  ) {
-    console.log(10 - chosenCoupon.value.coupon.discount);
-    return (
-      (productPrice.value * (10 - chosenCoupon.value.coupon.discount)) /
-      10
-    ).toFixed(2);
-  }
-  if (
-    chosenCoupon.value.coupon.type === "REDUCE" &&
-    chosenCoupon.value.coupon.amount
-  ) {
-    return productPrice.value - chosenCoupon.value.coupon.amount;
-  }
-});
-const handleCouponChoose = (
-  value: CouponUserDto["CouponUserRepository/COMPLEX_FETCHER"],
-) => {
-  console.log(value);
-  chosenCoupon.value = value;
-  couponListVisible.value = false;
 };
 </script>
 

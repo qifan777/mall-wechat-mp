@@ -1,5 +1,8 @@
 import type { CouponScope, CouponType } from "../enums/";
 
+/**
+ * Entity for table "coupon"
+ */
 export interface CouponSpec {
   thresholdAmount?: number | undefined;
   releasedQuantity?: number | undefined;

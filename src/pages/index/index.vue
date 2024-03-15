@@ -31,7 +31,7 @@ Taro.useLoad(() => {
 const { pageData } = usePageHelper(
   api.productController.query,
   api.productController,
-  {},
+  { query: {} },
 );
 
 // 点击封面触发

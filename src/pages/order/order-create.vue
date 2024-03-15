@@ -1,12 +1,15 @@
 <template>
   <div class="order-submit">
-    <div class="address" v-if="address">
+    <div class="address">
       <nut-cell is-link center @click="addressChooseVisible = true">
         <template #icon>
           <image class="icon" src="@/assets/icons/location.png"></image>
         </template>
         <template #title>
-          <address-row :address="address"></address-row>
+          <address-row :address="address" v-if="address"></address-row>
+        </template>
+        <template #desc v-if="!address">
+          <div>请选择收货地址</div>
         </template>
         <template #link>
           <rect-right></rect-right>
@@ -96,6 +99,8 @@ import type {
   PaymentPriceView,
   ProductOrderInput,
 } from "@/apis/__generated/model/static";
+import { recursiveOmit } from "@/utils/page";
+import _ from "lodash";
 
 const addressChooseVisible = ref(false);
 const address = ref<AddressDto["AddressRepository/SIMPLE_FETCHER"]>();
@@ -144,8 +149,8 @@ watchEffect(() => {
   if (address.value) {
     order.value.addressId = address.value.id;
   }
-  if (chosenCoupon.value && order.value.couponUser) {
-    order.value.couponUser.id = chosenCoupon.value.id;
+  if (chosenCoupon.value) {
+    order.value.couponUser = { id: chosenCoupon.value.id };
   }
   api.productOrderController.calculate({ body: order.value }).then((res) => {
     paymentPrice.value = res;
@@ -159,6 +164,9 @@ const saveOrder = () => {
       duration: 1000,
     });
     return;
+  }
+  if (order.value.couponUser && !order.value.couponUser.id) {
+    order.value = _.omit(order.value, ["couponUser"]);
   }
   api.productOrderController
     .create({

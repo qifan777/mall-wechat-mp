@@ -7,15 +7,17 @@
       closeable
       round
     >
-      <div
-        class="address-wrapper"
-        :key="address.id"
-        v-for="address in addressList"
-        @click="handleChoose(address)"
-      >
-        <check color="red" v-if="address.id == chosenAddress.id"></check>
-        <location2 color="red" v-else></location2>
-        <address-row class="address" :address="address"> </address-row>
+      <div class="address-wrapper">
+        <div
+          class="address"
+          :key="address.id"
+          v-for="address in addressList"
+          @click="handleChoose(address)"
+        >
+          <check color="red" v-if="address.id == chosenAddress.id"></check>
+          <location2 color="red" v-else></location2>
+          <address-row :address="address"> </address-row>
+        </div>
       </div>
     </nut-popup>
   </div>
@@ -53,9 +55,14 @@ const handleChoose = (address: SimpleAddressDto) => {
 <style lang="scss">
 .address-choose {
   .address-wrapper {
-    margin: 0 20px;
-    display: flex;
-    align-items: center;
+    min-height: 300px;
+    padding: 20px;
+    margin-top: 60px;
+    .address {
+      margin: 0 20px;
+      display: flex;
+      align-items: center;
+    }
   }
 }
 </style>

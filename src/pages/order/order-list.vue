@@ -50,12 +50,12 @@ const { TO_BE_PAID, TO_BE_DELIVERED, TO_BE_RECEIVED, CLOSED } =
 const tabList = [TO_BE_PAID, TO_BE_DELIVERED, TO_BE_RECEIVED, CLOSED];
 const activeStatus = ref<ProductOrderStatus>("TO_BE_PAID");
 const handleTabChange = () => {
-  reloadPageData({ status: activeStatus.value });
+  reloadPageData({ query: { status: activeStatus.value } });
 };
 const { pageData, reloadPageData } = usePageHelper(
   api.productOrderController.queryByUser,
   api.productOrderController,
-  { status: activeStatus.value },
+  { query: { status: activeStatus.value } },
 );
 const showCancel = (status: ProductOrderStatus) => {
   return status === "TO_BE_PAID" || status === "TO_BE_DELIVERED";

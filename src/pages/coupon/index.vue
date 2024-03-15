@@ -15,7 +15,7 @@ const homeStore = useHomeStore();
 const { pageData } = usePageHelper(
   api.couponUserController.queryByUser,
   api.couponController,
-  {},
+  { query: {} },
 );
 </script>
 
